@@ -1,6 +1,6 @@
 # buildbot-master
 
-Buildbot master for Menix and similar Jinx distributions.
+Buildbot master for Zinnia and similar Jinx distributions.
 
 ## Initial setup
 

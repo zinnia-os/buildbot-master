@@ -1,12 +1,12 @@
 # Title seen on the website.
-title = "Menix"
+title = "Zinnia"
 # URL to the project website.
-title_url = "https://menix-os.org"
+title_url = "https://zinnia-os.org"
 # URL of the hosted builder.
 bot_url = "http://localhost:8010"
 
 # Git URL of the repository.
-repo_url = "https://github.com/menix-os/bootstrap.git"
+repo_url = "https://github.com/zinnia-os/bootstrap.git"
 repo_branch = "main"
 # How often to check the repository for updates.
 update_secs = 300
