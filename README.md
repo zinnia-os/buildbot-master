@@ -19,7 +19,7 @@ Note that the secret files must be only accessible by the user, i.e. mode 600.
 Also make sure there are no trailing characters like newlines in the file.
 
 ```sh
-echo 'my_password' > ./${secrets_dir}/my_worker
+echo -n 'my_password' > ./${secrets_dir}/my_worker
 chmod 600 ./${secrets_dir}/my_worker
 ```
 

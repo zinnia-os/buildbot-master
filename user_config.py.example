@@ -38,7 +38,7 @@ archs = [
 workers = [
     {
         # Name of the machine.
-        "name": "my-worker",
+        "name": "my_worker",
         # Architectures that this machine can build.
         "archs": ["x86_64"],
         # Amount of simultaneous builds on this machine.
