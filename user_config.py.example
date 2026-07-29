@@ -12,7 +12,7 @@ repo_branch = "main"
 update_secs = 300
 
 # Path to the jinx script in the repository.
-# Must be at least version 0.8!
+# Must be at least version 0.10!
 jinx_path = "jinx/jinx"
 
 # Port on which the web server is running.
@@ -30,8 +30,13 @@ archs = [
     {
         # Name of the architecture. Used for Jinx!
         "name": "x86_64",
-        # Directory to store packages in.
+        # Directory to store target packages in.
         "results": "results/x86_64",
+        # Directory to store host packages in. Host packages are named for the
+        # build machine's architecture, so they cannot share a directory with
+        # the target packages. Serve this as JINX_HOST_REPO_URL.
+        # Defaults to a "host" subdirectory of "results".
+        "host_results": "results/x86_64/host",
     },
 ]
 

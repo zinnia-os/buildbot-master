@@ -2,6 +2,32 @@
 
 Buildbot master for Zinnia and similar Jinx distributions.
 
+Requires **Jinx 0.10** or newer in the distribution repository. Older Jinx
+releases used a separate `host-build` command and did not produce host
+packages as XBPS packages, neither of which this configuration supports any
+more.
+
+## Package repositories
+
+Each builder publishes two directories, both served by the results web server:
+
+- `results` -> target packages, built for the architecture named in `archs`.
+- `host_results` -> host packages, built for the worker machine's own
+  architecture. These need a directory of their own because their repository
+  index is named after the build machine's architecture, which on a native
+  build would collide with the target index.
+
+Point the distribution's `Jinxfile` at them so builders can pull prebuilt
+packages instead of rebuilding everything:
+
+```sh
+JINX_REPO_URL=https://example.org/${JINX_ARCH}
+JINX_HOST_REPO_URL=https://example.org/${JINX_ARCH}/host
+```
+
+Both downloads are best effort. A builder whose repositories are empty (or not
+published yet) just builds more, and populates them on the way.
+
 ## Initial setup
 
 You will need to create a config. You can use the example config as a base,
@@ -47,7 +73,11 @@ buildbot start ${NAME}
 ## Creating a worker
 
 Workers should not be run inside a container, but they can live on the same
-machine as the master.
+machine as the master. Beyond buildbot-worker itself, Jinx needs the following
+on the worker: `bash`, `awk`, `git`, GNU `make`, `grep`, `sed`, `tar`, `gzip`,
+`zstd`, `wget`, `sha256sum` (coreutils), `find` and `xargs` (findutils), `free`
+(procps) and `unshare` (util-linux). Unprivileged user namespaces must be
+enabled, as Jinx builds inside a container it sets up itself.
 
 ```sh
 # Install buildbot-worker via pip (Create a venv if necessary).
