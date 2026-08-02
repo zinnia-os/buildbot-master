@@ -1,0 +1,6 @@
+.git
+db
+results
+secrets
+user_config.py
+venv

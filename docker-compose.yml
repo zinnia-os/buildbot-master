@@ -1,6 +1,7 @@
 services:
   buildbot:
-    image: buildbot/buildbot-master:master
+    build: .
+    image: zinnia-buildbot-master
     volumes:
       - ./master.cfg:/buildbot/master.cfg:ro
       - ./user_config.py:/buildbot/user_config.py:ro

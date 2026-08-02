@@ -25,6 +25,9 @@ db_url = "sqlite:///db/state.sqlite"
 # Directory where secrets are stored.
 secrets_dir = "secrets"
 
+# Description embedded in the repository metadata and shown to clients.
+signed_by = "Zinnia Bootstrap"
+
 # CPU architectures to build for.
 archs = [
     {
@@ -37,6 +40,8 @@ archs = [
         # the target packages. Serve this as JINX_HOST_REPO_URL.
         # Defaults to a "host" subdirectory of "results".
         "host_results": "results/x86_64/host",
+        # Architecture of packages built for the host machine.
+        "host_arch": "x86_64",
     },
 ]
 

@@ -49,6 +49,36 @@ echo -n 'my_password' > ./${secrets_dir}/my_worker
 chmod 600 ./${secrets_dir}/my_worker
 ```
 
+Generate the RSA repository-signing key once. Keep this key backed up and do
+not copy it to build workers.
+Changing or losing it changes the identity of the package repository.
+
+```sh
+openssl genrsa -out ./${secrets_dir}/repository-signing-key.pem 4096
+chmod 600 ./${secrets_dir}/repository-signing-key.pem
+```
+
+Set `signing_key` and `signed_by` in `user_config.py`. The first successful
+build indexes all packages already present in each results directory, embeds
+the public key in repodata, and creates any missing `.xbps.sig2` files.
+
+To publish packages that already exist without waiting for another build, run
+the publisher once for each repository after building the master image:
+
+```sh
+docker compose run --rm --no-deps buildbot \
+    /usr/local/bin/publish-xbps-repository \
+    /buildbot/results/x86_64 \
+    /buildbot/secrets/repository-signing-key.pem \
+    "Zinnia Bootstrap" x86_64
+
+docker compose run --rm --no-deps buildbot \
+    /usr/local/bin/publish-xbps-repository \
+    /buildbot/results/x86_64/host \
+    /buildbot/secrets/repository-signing-key.pem \
+    "Zinnia Bootstrap" x86_64
+```
+
 ## Running Buildbot
 
 ### docker-compose
@@ -56,6 +86,7 @@ chmod 600 ./${secrets_dir}/my_worker
 The docker-compose file creates a master and a webserver to host the results page. To start it, run it like any other container:
 
 ```sh
+docker compose build buildbot
 docker compose up -d
 ```
 
