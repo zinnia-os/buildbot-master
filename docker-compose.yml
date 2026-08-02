@@ -2,6 +2,7 @@ services:
   buildbot:
     build: .
     image: zinnia-buildbot-master
+    restart: unless-stopped
     volumes:
       - ./master.cfg:/buildbot/master.cfg:ro
       - ./user_config.py:/buildbot/user_config.py:ro
